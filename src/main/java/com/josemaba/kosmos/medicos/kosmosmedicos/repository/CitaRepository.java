@@ -1,6 +1,7 @@
 package com.josemaba.kosmos.medicos.kosmosmedicos.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,5 +20,7 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
     boolean existsByDoctorAndFechaHora(Doctor doctor, LocalDateTime fechaHora);
     Page<Cita> findAllByDoctor(Doctor doctor, Pageable pageable);
     Page<Cita> findAllByFechaHoraGreaterThanEqualAndFechaHoraLessThan(LocalDateTime startOfDay, LocalDateTime endOfDay, Pageable pageable);
+    int countByDoctorIdAndFechaHoraBetween(Doctor doctor, LocalDateTime inicio, LocalDateTime fin);
+    List<Cita> findByNombrePacienteAndFechaHoraBetween(String paciente, LocalDateTime inicio, LocalDateTime fin);
 
 }

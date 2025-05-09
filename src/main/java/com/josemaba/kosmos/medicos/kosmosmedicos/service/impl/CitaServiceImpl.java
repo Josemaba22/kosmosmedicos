@@ -1,9 +1,11 @@
 package com.josemaba.kosmos.medicos.kosmosmedicos.service.impl;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import com.josemaba.kosmos.medicos.kosmosmedicos.entity.Cita;
 import com.josemaba.kosmos.medicos.kosmosmedicos.entity.Doctor;
 import com.josemaba.kosmos.medicos.kosmosmedicos.exception.CitaEnPasadoException;
 import com.josemaba.kosmos.medicos.kosmosmedicos.exception.HorarioOcupadoException;
+import com.josemaba.kosmos.medicos.kosmosmedicos.exception.HorarioPacienteInvalidoException;
+import com.josemaba.kosmos.medicos.kosmosmedicos.exception.MaximoDeCitasException;
 import com.josemaba.kosmos.medicos.kosmosmedicos.exception.ObjectNotFoundException;
 import com.josemaba.kosmos.medicos.kosmosmedicos.repository.CitaRepository;
 import com.josemaba.kosmos.medicos.kosmosmedicos.repository.DoctorRepository;
@@ -38,6 +42,9 @@ public class CitaServiceImpl implements CitaService {
     public Cita deleteById(Long id) {
         Cita cita = citaRepository.findById(id)
             .orElseThrow(() -> new ObjectNotFoundException("No se encotró la cita."));
+        if(cita.getFechaHora().isBefore(LocalDateTime.now())) {
+            throw new CitaEnPasadoException("No se puede cancerlar una cita ya pasada.");
+        }
         citaRepository.deleteById(id);
         return cita;
     }
@@ -67,7 +74,23 @@ public class CitaServiceImpl implements CitaService {
         if(estaHoraOcupada){
             throw new HorarioOcupadoException("Horario ocupado, por favor, ingrsese otra fecha");
         }
-        
+
+        LocalDate fecha = cita.getFechaHora().toLocalDate();
+        LocalDateTime inicio = fecha.atStartOfDay();
+        LocalDateTime fin = fecha.atTime(23,59,59);
+        int countrCitasDelDia = citaRepository.countByDoctorIdAndFechaHoraBetween(cita.getDoctor(), inicio, fin);
+        if(countrCitasDelDia >= 8){
+            throw new MaximoDeCitasException("El doctor ya tiene 8 citas para ese día");
+        }
+
+        List<Cita> citasDelPaciente = citaRepository.findByNombrePacienteAndFechaHoraBetween(cita.getNombrePaciente(), inicio, fin);
+        for(Cita existente : citasDelPaciente){
+            Duration diferencia = Duration.between(existente.getFechaHora(), cita.getFechaHora()).abs();
+            if(diferencia.toHours() < 2){
+                throw new HorarioPacienteInvalidoException("El paciente ya tiene cita en horario cercano.");
+            }
+        }
+
         cita.setDoctor(doctor);
         return citaRepository.save(cita);
     
@@ -90,6 +113,22 @@ public class CitaServiceImpl implements CitaService {
 
         if(citaDTO.getFechaHora().isBefore(LocalDateTime.now())){
             throw new CitaEnPasadoException("La fecha ya expiró, ingrese una nueva fecha");
+        }
+
+        LocalDate fecha = cita.getFechaHora().toLocalDate();
+        LocalDateTime inicio = fecha.atStartOfDay();
+        LocalDateTime fin = fecha.atTime(23,59,59);
+        int countrCitasDelDia = citaRepository.countByDoctorIdAndFechaHoraBetween(cita.getDoctor(), inicio, fin);
+        if(countrCitasDelDia >= 8){
+            throw new MaximoDeCitasException("El doctor ya tiene 8 citas para ese día");
+        }
+
+        List<Cita> citasDelPaciente = citaRepository.findByNombrePacienteAndFechaHoraBetween(cita.getNombrePaciente(), inicio, fin);
+        for(Cita existente : citasDelPaciente){
+            Duration diferencia = Duration.between(existente.getFechaHora(), cita.getFechaHora()).abs();
+            if(diferencia.toHours() < 2){
+                throw new HorarioPacienteInvalidoException("El paciente ya tiene cita en horario cercano.");
+            }
         }
 
         cita.setDoctor(doctor);

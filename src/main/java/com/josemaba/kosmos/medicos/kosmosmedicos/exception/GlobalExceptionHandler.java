@@ -17,4 +17,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleCitaEnPasado(CitaEnPasadoException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(HorarioPacienteInvalidoException.class)
+    public ResponseEntity<String> handleCitaEnPasado(HorarioPacienteInvalidoException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(MaximoDeCitasException.class)
+    public ResponseEntity<String> handleCitaEnPasado(MaximoDeCitasException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<String> handleCitaEnPasado(ObjectNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
 }
