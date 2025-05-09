@@ -1,7 +1,7 @@
 /* Creacion de Doctores */
-INSERT INTO doctores (nombre, especialidad, consultorio) VALUES ('Jose Manuel Barraza','Neurologo', 'Buena vista al cielo');
-INSERT INTO doctores (nombre, especialidad, consultorio) VALUES ('Simon Pedro','Traumatologo', 'Piedra');
-INSERT INTO doctores (nombre, especialidad, consultorio) VALUES ('Jesus Cristo','Cardiologo', 'Reino de Dios');
+INSERT INTO doctores (nombre, apellido_paterno, apellido_materno,especialidad) VALUES ('Jose Manuel', 'Barraza', 'Aispuro','Neurologo');
+INSERT INTO doctores (nombre, apellido_paterno, apellido_materno,especialidad) VALUES ('Simon', 'Pedro', 'Piedra','Traumatologo');
+INSERT INTO doctores (nombre, apellido_paterno, apellido_materno,especialidad) VALUES ('Jesus', 'Cristo', 'De Nazaret','Cardiologo');
 
 /* Creacion de Pacientes */
 INSERT INTO pacientes (nombre, fecha_nacimiento, email) VALUES ('Elias Israel','1995-01-01','elias.israel@mail.com');

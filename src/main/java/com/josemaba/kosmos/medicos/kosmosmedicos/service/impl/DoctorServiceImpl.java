@@ -40,9 +40,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor save(DoctorDTO doctorDTO) {
         Doctor doctor = new Doctor();
-        doctor.setNombre
-        (doctorDTO.getNombre());
-        doctor.setConsultorio(doctorDTO.getConsultorio());
+        doctor.setNombre(doctorDTO.getNombre());
+        doctor.setApellidoPaterno(doctorDTO.getApellidoPaterno());
+        doctor.setApellidoMaterno(doctorDTO.getApellidoMaterno());
         doctor.setEspecialidad(doctorDTO.getEspecialidad());
         return doctorRepository.save(doctor);
     }
@@ -52,7 +52,8 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = doctorRepository.findById(doctorDTO.getId())
             .orElseThrow(() -> new ObjectNotFoundException("No se encontró doctor."));
         doctor.setNombre(doctorDTO.getNombre());
-        doctor.setConsultorio(doctorDTO.getConsultorio());
+        doctor.setApellidoPaterno(doctorDTO.getApellidoPaterno());
+        doctor.setApellidoMaterno(doctorDTO.getApellidoMaterno());
         doctor.setEspecialidad(doctorDTO.getEspecialidad());
         return doctorRepository.save(doctor);
     }

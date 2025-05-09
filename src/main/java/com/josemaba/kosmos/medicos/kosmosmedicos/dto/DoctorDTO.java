@@ -15,8 +15,12 @@ public class DoctorDTO {
     private String nombre;
     
     @NotBlank
+    private String apellidoPaterno;
+    
+    @NotBlank
+    private String apellidoMaterno;
+    
+    @NotBlank
     private String especialidad;
 
-    @NotBlank
-    private String consultorio;
 }
