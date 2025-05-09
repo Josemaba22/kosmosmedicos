@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "citas")
+@Table(name = "consultorios")
 public class Consultorio {
     
     @Id
@@ -25,5 +25,5 @@ public class Consultorio {
     private Long numeroDeConsultorio;
 
     private Long piso;
-    
+
 }

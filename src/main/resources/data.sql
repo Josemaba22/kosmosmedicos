@@ -3,6 +3,13 @@ INSERT INTO doctores (nombre, apellido_paterno, apellido_materno,especialidad) V
 INSERT INTO doctores (nombre, apellido_paterno, apellido_materno,especialidad) VALUES ('Simon', 'Pedro', 'Piedra','Traumatologo');
 INSERT INTO doctores (nombre, apellido_paterno, apellido_materno,especialidad) VALUES ('Jesus', 'Cristo', 'De Nazaret','Cardiologo');
 
+/* Creacion de Consultorios */
+INSERT INTO consultorios (numero_de_consultorio, piso) VALUES (101, 1);
+INSERT INTO consultorios (numero_de_consultorio, piso) VALUES (102, 1);
+INSERT INTO consultorios (numero_de_consultorio, piso) VALUES (201, 2);
+INSERT INTO consultorios (numero_de_consultorio, piso) VALUES (202, 2);
+INSERT INTO consultorios (numero_de_consultorio, piso) VALUES (301, 3);
+
 /* Creacion de Pacientes */
 INSERT INTO pacientes (nombre, fecha_nacimiento, email) VALUES ('Elias Israel','1995-01-01','elias.israel@mail.com');
 INSERT INTO pacientes (nombre, fecha_nacimiento, email) VALUES ('Juan Pérez','1990-05-15','juan.perez@example.com');
