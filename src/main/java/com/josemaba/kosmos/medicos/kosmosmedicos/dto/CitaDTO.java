@@ -18,5 +18,5 @@ public class CitaDTO {
     
     private Long id_doctor;
     
-    private Long id_paciente;
+    private String nombrePaciente;
 }

@@ -27,9 +27,10 @@ public class Cita {
     @Column(name = "fecha_hora")
     private LocalDateTime fechaHora;
 
+    @Column(name = "nombre_paciente")
+    private String nombrePaciente;
+
     @ManyToOne
     private Doctor doctor;
 
-    @ManyToOne
-    private Paciente paciente;
 }

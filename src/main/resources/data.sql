@@ -17,7 +17,7 @@ INSERT INTO pacientes (nombre, fecha_nacimiento, email) VALUES ('Maria Garcia','
 INSERT INTO pacientes (nombre, fecha_nacimiento, email) VALUES ('Carlos Rodriguez', '2002-03-08','carlos.rodriguez@example.com');
 
 /* Creacion de citas */
-INSERT INTO citas (fecha_hora, doctor_id, paciente_id) VALUES('2025-05-12 09:00:00',1L,1L);
-INSERT INTO citas (fecha_hora, doctor_id, paciente_id) VALUES('2025-05-12 10:00:00',1L,2L);
-INSERT INTO citas (fecha_hora, doctor_id, paciente_id) VALUES('2025-05-12 12:00:00',1L,3L);
+INSERT INTO citas (fecha_hora, doctor_id, nombre_paciente) VALUES('2025-05-12 09:00:00',1L,'Esteban Gutierritos');
+INSERT INTO citas (fecha_hora, doctor_id, nombre_paciente) VALUES('2025-05-12 10:00:00',1L,'Chencho Morales');
+INSERT INTO citas (fecha_hora, doctor_id, nombre_paciente) VALUES('2025-05-12 12:00:00',1L,'Jessica Castillo');
 

@@ -14,13 +14,12 @@ import org.springframework.stereotype.Service;
 import com.josemaba.kosmos.medicos.kosmosmedicos.dto.CitaDTO;
 import com.josemaba.kosmos.medicos.kosmosmedicos.entity.Cita;
 import com.josemaba.kosmos.medicos.kosmosmedicos.entity.Doctor;
-import com.josemaba.kosmos.medicos.kosmosmedicos.entity.Paciente;
 import com.josemaba.kosmos.medicos.kosmosmedicos.exception.CitaEnPasadoException;
 import com.josemaba.kosmos.medicos.kosmosmedicos.exception.HorarioOcupadoException;
 import com.josemaba.kosmos.medicos.kosmosmedicos.exception.ObjectNotFoundException;
 import com.josemaba.kosmos.medicos.kosmosmedicos.repository.CitaRepository;
 import com.josemaba.kosmos.medicos.kosmosmedicos.repository.DoctorRepository;
-import com.josemaba.kosmos.medicos.kosmosmedicos.repository.PacienteRepository;
+// import com.josemaba.kosmos.medicos.kosmosmedicos.repository.PacienteRepository;
 import com.josemaba.kosmos.medicos.kosmosmedicos.service.CitaService;
 
 @Service
@@ -29,8 +28,8 @@ public class CitaServiceImpl implements CitaService {
     @Autowired
     private CitaRepository citaRepository;
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
+    // @Autowired
+    // private PacienteRepository pacienteRepository;
 
     @Autowired
     private DoctorRepository doctorRepository;
@@ -61,7 +60,7 @@ public class CitaServiceImpl implements CitaService {
         }
         Cita cita = new Cita();
         cita.setFechaHora(citaDTO.getFechaHora());
-        Paciente paciente = pacienteRepository.findById(citaDTO.getId_paciente()).get();
+        cita.setNombrePaciente(citaDTO.getNombrePaciente());
         Doctor doctor = doctorRepository.findById(citaDTO.getId_doctor()).get();
 
         boolean estaHoraOcupada = citaRepository.existsByDoctorAndFechaHora(doctor, citaDTO.getFechaHora());
@@ -70,7 +69,6 @@ public class CitaServiceImpl implements CitaService {
         }
         
         cita.setDoctor(doctor);
-        cita.setPaciente(paciente);
         return citaRepository.save(cita);
     
     }
@@ -82,7 +80,7 @@ public class CitaServiceImpl implements CitaService {
             .orElseThrow(() -> new ObjectNotFoundException("No se encontró la cita."));
 
         cita.setFechaHora(citaDTO.getFechaHora());
-        Paciente paciente = pacienteRepository.findById(citaDTO.getId_paciente()).get();
+        cita.setNombrePaciente(citaDTO.getNombrePaciente());
         Doctor doctor = doctorRepository.findById(citaDTO.getId_doctor()).get();
             
         boolean estaHoraOcupada = citaRepository.existsByDoctorAndFechaHora(doctor, citaDTO.getFechaHora());
@@ -95,7 +93,6 @@ public class CitaServiceImpl implements CitaService {
         }
 
         cita.setDoctor(doctor);
-        cita.setPaciente(paciente);
         return citaRepository.save(cita);
     
     }
